@@ -2,12 +2,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_template/core/base/state/base_state.dart';
 import 'package:flutter_architecture_template/core/base/view/base_view.dart';
+import 'package:flutter_architecture_template/core/constants/enums/locale_keys_enum.dart';
 import 'package:flutter_architecture_template/core/extension/string_extension.dart';
+import 'package:flutter_architecture_template/core/init/cache/locale_manager.dart';
 import 'package:flutter_architecture_template/core/init/lang/language_manager.dart';
 import 'package:flutter_architecture_template/core/init/lang/locale_keys.g.dart';
 import 'package:flutter_architecture_template/view/authenticate/test/viewmodel/test_view_model.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 
 class TestView extends StatefulWidget {
   const TestView({Key? key}) : super(key: key);
@@ -31,6 +32,8 @@ class _TestViewState extends BaseState<TestView> {
 
   Widget get scaffoldBody => Scaffold(
         appBar: AppBar(
+          leading: Text(
+              LocaleManager.instance.getStringValue(PreferencesKeys.TOKEN)),
           title: textWelcomeWidget(),
           actions: [iconButtonChangeTheme()],
         ),
