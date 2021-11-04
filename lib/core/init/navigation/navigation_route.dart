@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_template/core/components/card/not_found_navigation_widget.dart';
 import 'package:flutter_architecture_template/core/constants/navigation/navigation_constans.dart';

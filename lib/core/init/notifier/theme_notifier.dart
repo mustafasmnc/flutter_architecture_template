@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_template/core/constants/enums/app_theme_enum.dart';
-import 'package:flutter_architecture_template/core/init/theme/app_theme.dart';
 import 'package:flutter_architecture_template/core/init/theme/app_theme_light.dart';
 
 class ThemeNotifier extends ChangeNotifier {
