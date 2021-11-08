@@ -24,22 +24,35 @@ class _TestViewState extends BaseState<TestView> {
     return BaseView<TestViewModel>(
       viewModel: TestViewModel(),
       onModelReady: (model) {
-        viewModel = model;
+        model.setContext(context);
+        model.init();
       },
       onPageBuilder: (context, value) => scaffoldBody,
     );
   }
 
   Widget get scaffoldBody => Scaffold(
-        appBar: AppBar(
-          leading: Text(
-              LocaleManager.instance.getStringValue(PreferencesKeys.TOKEN)),
-          title: textWelcomeWidget(),
-          actions: [iconButtonChangeTheme()],
-        ),
+        appBar: appBar(),
         floatingActionButton: floatingActionButtonNumberIncrement,
         body: textNumber,
       );
+
+  AppBar appBar() {
+    return AppBar(
+      leading:
+          Text(LocaleManager.instance.getStringValue(PreferencesKeys.TOKEN)),
+      title: textWelcomeWidget(),
+      actions: [iconButtonChangeTheme()],
+    );
+  }
+
+  Widget get textNumber {
+    return Column(
+      children: [
+        Observer(builder: (context) => Text(viewModel!.number.toString())),
+      ],
+    );
+  }
 
   Text textWelcomeWidget() => Text(LocaleKeys.welcome.locale);
 
@@ -56,8 +69,9 @@ class _TestViewState extends BaseState<TestView> {
       onPressed: () => viewModel!.incrementNumber(),
     );
   }
+}
 
-  Widget get textNumber {
-    return Observer(builder: (context) => Text(viewModel!.number.toString()));
-  }
+extension _FormArea on _TestViewState {
+  TextFormField get mailField =>
+      TextFormField(validator: (value) => value!.isValidEmail);
 }

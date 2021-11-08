@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture_template/core/base/model/base_view_model.dart';
 import 'package:flutter_architecture_template/core/constants/enums/app_theme_enum.dart';
 import 'package:flutter_architecture_template/core/init/network/network_manager.dart';
 import 'package:flutter_architecture_template/core/init/notifier/theme_notifier.dart';
@@ -11,12 +12,12 @@ part 'test_view_model.g.dart';
 
 class TestViewModel = _TestViewModelBase with _$TestViewModel;
 
-abstract class _TestViewModelBase with Store {
+abstract class _TestViewModelBase with Store, BaseViewModel {
   BuildContext? context;
 
-  void setContext(BuildContext context) {
-    this.context = context;
-  }
+  void setContext(BuildContext context) => this.context = context;
+
+  void init() {}
 
   @observable
   bool isLoading = false;
