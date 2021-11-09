@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_architecture_template/core/base/model/base_model.dart';
 import 'package:flutter_architecture_template/core/constants/enums/locale_keys_enum.dart';
 import 'package:flutter_architecture_template/core/init/cache/locale_manager.dart';
+import 'package:flutter_architecture_template/core/init/network/ICoreDio.dart';
+import 'package:flutter_architecture_template/core/init/network/core_dio.dart';
 
 class NetworkManager {
   static NetworkManager? _instance;
@@ -12,7 +14,9 @@ class NetworkManager {
     return _instance!;
   }
 
-  Dio? _dio;
+  ICoreDio? coreDio;
+
+  //Dio? _dio;
 
   NetworkManager._init() {
     final baseOptions = BaseOptions(
@@ -20,7 +24,9 @@ class NetworkManager {
         headers: {
           "val": LocaleManager.instance.getStringValue(PreferencesKeys.TOKEN)
         });
-    _dio = Dio(baseOptions);
+    //_dio = Dio(baseOptions);
+
+    coreDio = CoreDio(baseOptions);
 
     // _dio!.interceptors.add(InterceptorsWrapper(
     //   onRequest: (options) {
@@ -32,19 +38,19 @@ class NetworkManager {
     // }));
   }
 
-  Future dioGet<T extends BaseModel>(String path, T model) async {
-    final response = await _dio!.get(path);
+  // Future dioGet<T extends BaseModel>(String path, T model) async {
+  //   final response = await _dio!.get(path);
 
-    switch (response.statusCode) {
-      case HttpStatus.ok:
-        final responseBody = response.data;
-        if (responseBody is List) {
-          return responseBody.map((e) => model.fromJson(e)).toList();
-        } else if (responseBody is Map) {
-          return model.fromJson(responseBody as Map<String, Object>);
-        }
-        return responseBody;
-      default:
-    }
-  }
+  //   switch (response.statusCode) {
+  //     case HttpStatus.ok:
+  //       final responseBody = response.data;
+  //       if (responseBody is List) {
+  //         return responseBody.map((e) => model.fromJson(e)).toList();
+  //       } else if (responseBody is Map) {
+  //         return model.fromJson(responseBody as Map<String, Object>);
+  //       }
+  //       return responseBody;
+  //     default:
+  //   }
+  // }
 }

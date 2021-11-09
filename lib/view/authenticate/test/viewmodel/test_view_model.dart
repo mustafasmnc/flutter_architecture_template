@@ -1,7 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_template/core/base/model/base_view_model.dart';
 import 'package:flutter_architecture_template/core/constants/enums/app_theme_enum.dart';
+import 'package:flutter_architecture_template/core/constants/enums/http_request_enum.dart';
+import 'package:flutter_architecture_template/core/init/network/IResponseModel.dart';
 import 'package:flutter_architecture_template/core/init/network/network_manager.dart';
 import 'package:flutter_architecture_template/core/init/notifier/theme_notifier.dart';
 import 'package:flutter_architecture_template/view/authenticate/test/model/test_model.dart';
@@ -41,10 +44,13 @@ abstract class _TestViewModelBase with Store, BaseViewModel {
   @action
   Future<void> getSampleRequest() async {
     isLoading = true;
-    final response =
-        await NetworkManager.instance.dioGet<TestModel>("x", TestModel());
+    //final response =await NetworkManager.instance.dioGet<TestModel>("x", TestModel());
+    final response = await coreDio!.fetch<List<TestModel>, TestModel>("x",
+        type: HttpTypes.GET, parseModel: TestModel());
     if (response.data is List<TestModel>) {
-    } else {}
+    } else {
+      //response.error;
+    }
     isLoading = false;
   }
 }
